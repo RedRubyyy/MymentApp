@@ -1,0 +1,58 @@
+.herotron {
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.566) , #09090bb5) , url(../img/dark-classroom-for-backgound-lite-compressed.jpg) ; */
+    /* background-image: linear-gradient( #252B48 20%  , #181823 70%); */
+    background: #222831;
+    height: fit-content;
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+}
+.more-column {
+    width: 160px;
+}
+.input-disable-color {
+    color: #607274; 
+    background-color: #f5f5f5; 
+    pointer-events: none;
+}
+.table-container {
+    margin: 0 auto;
+    max-width: 800px;
+    margin: auto;
+    height: 100vh;
+    overflow-x: hidden;
+    box-shadow: -3px 0 150px 5px rgba(255, 255, 255, 0.092);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.bars-icon {
+    display: none;
+}
+.transition-menu-btn {
+    transition: all ease-in-out 0.3s;
+}
+.hide-menu-btn {
+    opacity: 0;
+    transform: translateX(15px)
+
+}
+.menu-arrow {
+    transition: all ease 0.6s;
+}
+@media only screen and (max-width: 478px) {
+    .information-btn {
+        display: none;
+    }
+    .detail-column {
+        width: 70px;
+    }
+    .detail-button {
+        width: 50px;
+    }
+    .bars-icon {
+        display: inline;
+    }
+}

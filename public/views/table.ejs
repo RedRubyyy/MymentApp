@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MymentApp - Table</title>
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../style/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/detail.css">
+    <!-- FONTAWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="herotron">
+<!-- UTILS SCRIPT -->
+<script src="../script/utils/extra.source.js"></script>
+<script defer="true" src="../script/components/display.data.js"></script>
+<script defer="true" src="../script/utils/search.data.js"></script>
+
+<!-- SCRIPT COMPONENT -->
+<script src="../script/components/display.data.js"></script>
+<div class="table-container bg-dark px-1 px-sm-2 px-md-3 ">
+    <nav class="d-flex justify-content-between">
+        <div class="input-group mb-3 mt-5 overflow-hidden rounded-3" style="background: #fff; max-width: 250px;">
+          <div class="d-flex justify-content-center align-items-center w-100 ps-3 ">
+            <i class="fa-solid fa-magnifying-glass text-dark fs-6 "></i>
+            <input type="text" class="form-control" style="border: none;" placeholder="Search user" id="search-bar">
+          </div>  
+        </div>
+        <div class="mb-3 mt-5 d-flex" style="max-width: fit-content;">
+            <button class="btn btn-primary mx-2" id="sort-button">
+                <i class="fa-solid fa-sort" style="font-size: 14px;"></i>
+              <span class="information-btn">SORT</span>
+            </button>
+            <div class="dropdown" style="width: fit-content;">
+              <button class="btn btn-secondary d-flex align-items-center" style="width: fit-content" type="button" id="menu-button" >
+                <span class="information-btn">Menu</span>
+                <span class=" bars-icon">
+                  <i class="fa-solid fa-bars"></i>
+                </span>
+                <i class="fa-solid fa-caret-down ms-2 menu-arrow" id="menu-arrow"></i>
+              </button>
+              <ul class="text-light position-absolute d-flex flex-column mt-3" style="width: 140px; right: 0px;">
+                
+                <button class="btn btn-secondary mt-1 d-flex justify-content-start align-items-center btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+                  <i class="fa-solid fa-money-bills me-2" style="font-size: 14px; width: 14px;"></i>
+                  <span class="">Tagihan</span> 
+                </button>
+                <a href="/admin-login" class="btn btn-secondary  mt-1 d-flex justify-content-start align-items-center btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+                  <i class="fa-solid fa-user me-2" style="font-size: 14px;"></i>
+                  <span class="information-btn">Login</span> 
+                </a>
+                <a href="/" class="btn btn-secondary  mt-1 d-flex justify-content-start align-items-center btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+                  <i class="fa-solid fa-right-from-bracket me-2" style="font-size: 14px;"></i>
+                  <span class="information-btn">HOME</span> 
+                </a>
+              </ul>
+            </div>
+          </div>
+    </nav>
+<script src="../script/components/menu.animation.js"></script>
+<script>
+  const menu = $('#menu-button');
+  const btnsMenuDropdown = $$('.btn-menu-dropdown');
+  const menuArrow = $('#menu-arrow');
+  
+  const menuAnimation = new Menu ('hide-menu-btn' , ...btnsMenuDropdown);
+  let eventAviable = true;
+  let display = false
+
+  menu.on('click' , function () {
+    if (eventAviable) {
+      eventAviable = false
+      
+      if (!display) {
+        menuArrow.style.rotate = '180deg';
+        return menuAnimation.display(111 , function () {
+          display = true
+          eventAviable = true
+        })
+      }
+      menuArrow.style.rotate = '0deg'
+      menuAnimation.hide(111 , function () {
+        display = false;
+        eventAviable = true
+      });
+    };
+    console.log(eventAviable + '<=')
+  })
+</script>
+    <table class="table table-dark table-bordered table-striped mt-4 w-100" id="table" style="overflow: hidden;">
+      <thead >
+        <tr >
+          <th scope="col" class="ps-1 ps-md-4 py-3" style="width: 70%;">NAMA LENGKAP</th>
+          <th scope="col" class="text-center py-3" style="width: 15%;">TOTAL</th>
+          <th scope="col" class="text-center py-3" style="width: 40px;">DETAIL</th>
+        </tr>
+
+      </thead>
+        <tbody id="body-table">
+          <% clientDatabase.forEach(client => { %>
+
+          <tr class="bg-transparent data-client-list" style="display: none;" data-username="<%- client.username  %>" >
+            <td class="text-nowrap bg-transparent ps-1 ps-md-4" id="username-list" ><%- client.username %></td>
+            <td class="text-nowrap bg-transparent">Rp <%- Number(client.savings).toLocaleString('id-ID') %></td>
+            <td class="d-flex justify-content-center bg-transparent " style=" height: 100%; ">
+
+              <a href="/client-detail/<%- client._id %>" class="btn btn-primary badge text-center px-2 py-2 w-100 button-edit" >
+                <i class="fa-solid fa-pencil bg-transparent me-sm-2 me-0"></i><span class="detail-list-button">Detail Data</span>
+              </a>
+            </td>
+          </tr>
+
+          <% }) %>
+        </tbody>
+    </table>
+    </div>
+    <footer class="d-flex align-items-center justify-content-center pt-3 text-light" style="background: #040d12d4">
+      <p class="lh-1">Copyright © 2024 Created by <a href="">Whom?</a> - MymentApp.</p>
+  </footer>
+<script defer="true" src="../script/pages/table.main.js"></script>
+</body>
+</html>

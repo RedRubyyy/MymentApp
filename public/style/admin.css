@@ -1,0 +1,61 @@
+.frame-blur {
+    background: #09090bb3;
+    backdrop-filter: blur(10px);
+    height: 100vh; 
+    z-index: 9999; 
+    top: 0; 
+    left: 0;
+    transition: all ease 0.3s ;
+}
+.information-btn {
+    display: inline-block;
+}
+.show-modal-alert {
+    transform: translateY(0px);
+}
+.hide-modal-alert {
+    transform: translateY(-190px);
+}
+
+.table-blur-frame {
+    max-width: 500px;
+    margin: auto;
+    height: 100vh;
+    backdrop-filter: blur(13px);
+    background: #0000007d;
+    box-shadow: -3px 0 150px 5px rgba(255, 255, 255, 0.092);
+}
+.from-add-data {
+    max-width: 500px;
+    margin: 0 auto;
+    transition: all ease 0.3s ;
+}
+.frame-blur-edit {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    backdrop-filter: blur(13px);
+    background: #0000007d;
+    transition: all ease 0.3s;
+}
+.form-method-data {
+    transition: all ease 0.3s;
+    max-width: 470px;
+    margin: auto;
+}
+
+
+.buble-button-detail {
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0px 0 15px 13px rgba(0, 0, 0, 0.624);
+    bottom: 5px;
+}
+
+@media only screen and (max-width: 576px) {
+    .detail-list-button {
+        display: none;
+    }
+}

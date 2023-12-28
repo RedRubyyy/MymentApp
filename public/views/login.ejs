@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MymentApp - Login</title>
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../style/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/login.css">
+    <!-- FONTAWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- SCRIPT HELPER -->
+    <script src="../script/utils/extra.source.js"></script>
+</head>
+<body>
+    <main class="herotron login-page-bg">
+        <div class="d-flex flex-column justify-content-center" style="height: 100vh;">
+            <div class="form-frame">
+            
+                <form class="text-light rounded-4 shadow-xl px-5 pb-5 admin-from-login bg-dark" action="/admin-login/admin-dashboard" method="post">
+                    <h1 class="fs-3 mb-5 text-center pt-4">LOGIN ADMIN</h1>
+                    <div class="input-group mb-3">
+                        <label for="input-username" class="input-group-text fw-bold">
+                            <i class="fa-solid fa-user"></i>
+                        </label>
+                        <input type="text" class="form-control" id="input-username" minlength="3" maxlength="11" name="username" placeholder="Username" required autocomplete="username">
+                    </div>
+                    <div class="input-group <%= message.length == 0 ? "mb-5" : "mb-3"%> ">
+                        <label for="input-password" class="input-group-text fw-bold">
+                            <i class="fa-solid fa-key"></i>
+                        </label>
+                        <input type="password" class="form-control" id="input-password" minlength="3" maxlength="11" name="password" placeholder="Password" required>
+                    </div>
+                    <% if (message.length != 0) { %>
+                    <p class="login-message text-danger"><%= message  %></p>
+                    <% } %>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="checkbox-show-password">
+                        <label class="form-check-label" for="checkbox-show-password">
+                          Show password character
+                        </label>
+                    </div>
+                    <div class="d-flex">
+                        <button type="submit" class="w-50 mx-1 btn btn-primary">Submit</button>
+                        <a href="/" type="button" class="w-50 mx-1 btn btn-secondary text-light">Kembali</a>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        
+        
+    </main>
+<script>
+const checkbox = $('#checkbox-show-password');
+const passwordInput = $('#input-password');
+checkbox.on('click' , function () {
+    const check = this.checked;
+    if (check) return passwordInput.type = 'text';
+    passwordInput.type = 'password';
+});
+</script>
+</body>
+</html>

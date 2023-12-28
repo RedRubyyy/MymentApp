@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MymentApp - Admin dashboar</title>
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../style/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/admin.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <!-- FONTAWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="herotron">
+<!-- SCRIPT UTILS -->
+<script defer="true" src="../script/utils/form.popup.js"></script>
+<script src="../script/utils/extra.source.js"></script>
+<script defer="true" src="../script/utils/search.data.js"></script>
+<script defer="true" src="../script/utils/locale.input.js"></script>
+<!-- <script defer="true" src="../script/utils/fetch.api.js"></script> -->
+<!-- SCRIPT COMPONENT -->
+<script defer="true" src="../script/components/display.data.js"></script>
+
+<!-- ALERT -->
+<% if (message.length !== 0) { %>
+  <div class="modal d-block hide-modal-alert" tabindex="-1" id="frame-alert-box"
+  style="
+  transition: all ease 0.3s;
+  height: fit-content;">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title fs-5">Notifikasi Baru</h5>
+          <button type="button" class="btn-close text-light" id="btn-close-modal-alert"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fs-6"><%= message %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  const closealert = $('#btn-close-modal-alert');
+  const frameAlert = $('#frame-alert-box');
+
+  function hideAlert () {
+    frameAlert.clsAdd('hide-modal-alert');
+    frameAlert.clsRemove('show-modal-alert');
+  }
+
+  setTimeout(function () {
+    frameAlert.clsAdd('show-modal-alert');
+    frameAlert.clsRemove('hide-modal-alert');
+    setTimeout(hideAlert , 7000);
+  } , 50)
+  closealert.on('click' , hideAlert)
+</script>
+<% } %>
+<!-- TABLE SECTION -->
+<div class="table-container bg-dark px-1 px-sm-2 px-md-3">
+  <nav class="d-flex justify-content-between">
+    <div class="input-group mb-3 mt-5 overflow-hidden rounded-3" style="background: #fff; max-width: 300px;">
+      <div class="d-flex justify-content-center align-items-center w-100 ps-3 ">
+        <i class="fa-solid fa-magnifying-glass text-dark fs-6 "></i>
+        <input type="text" class="form-control" style="border: none;" placeholder="Search user" id="search-bar">
+      </div>
+      
+    </div>
+    <div class="mb-3 mt-5 d-flex ms-2" style="max-width: fit-content;">
+      <button class="btn btn-primary ms-2 me-1"  id="create-button">
+        <i class="fa-solid fa-plus" style="font-size: 14px;"></i>
+        <span class="information-btn">Create</span>
+      </button>
+      <div class="dropdown" style="width: fit-content;">
+        <button class="btn btn-secondary d-flex align-items-center" style="width: fit-content" type="button" id="menu-button" >
+          <span class="information-btn">Menu</span>
+          <span class=" bars-icon">
+            <i class="fa-solid fa-bars"></i>
+          </span>
+          <i class="fa-solid fa-caret-down ms-2 menu-arrow" id="menu-arrow"></i>
+        </button>
+        <ul class="text-light position-absolute d-flex flex-column mt-3" style="width: 140px; right: 0px;">
+          
+          <button class="btn btn-secondary mt-1 d-flex justify-content-start align-items-center btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+            <i class="fa-solid fa-money-bills me-2" style="font-size: 14px; width: 14px;"></i>
+            <span class="">Tagihan</span> 
+          </button>
+          <a href="/data-table" class="btn btn-secondary mt-1 d-flex justify-content-start align-items-center btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+            <i class="fa-solid fa-user me-2" style="font-size: 14px; width: 14px;"></i>
+            <span class="">Client</span> 
+          </a>
+          <form action="/admin-logout" method="post" id="form-1"></form>
+          <button type="submit" form="form-1" class="btn btn-secondary mt-1 d-flex justify-content-start align-items-center  btn-menu-dropdown transition-menu-btn hide-menu-btn d-none">
+            <i class="fa-solid fa-right-from-bracket me-2" style="font-size: 14px; width: 14px;"></i>
+            <span class="">Logout</span> 
+          </button>
+        </ul>
+      </div>
+<script src="../script/components/menu.animation.js"></script>
+<script>
+  const menu = $('#menu-button');
+  const btnsMenuDropdown = $$('.btn-menu-dropdown');
+  const menuArrow = $('#menu-arrow');
+  
+  const menuAnimation = new Menu ('hide-menu-btn' , ...btnsMenuDropdown);
+  let eventAviable = true;
+  let display = false
+
+  menu.on('click' , function () {
+    if (eventAviable) {
+      eventAviable = false
+      
+      if (!display) {
+        menuArrow.style.rotate = '180deg';
+        return menuAnimation.display(111 , function () {
+          display = true
+          eventAviable = true
+        })
+      }
+      menuArrow.style.rotate = '0deg'
+      menuAnimation.hide(111 , function () {
+        display = false;
+        eventAviable = true
+      });
+    };
+  })
+
+</script>
+    </div>
+  </nav>
+  <table class="table table-dark table-bordered table-striped mt-4 w-100" id="table" style="overflow: hidden;">
+    <thead >
+      <tr >
+        <th scope="col" class="ps-1 ps-md-4 py-3" style="width: 70%;">NAMA LENGKAP</th>
+        <th scope="col" class="text-center py-3" style="width: 15%;">TOTAL</th>
+        <th scope="col" class="text-center py-3" style="width: 40px;">LAINYA</th>
+      </tr>
+    </thead>
+    <tbody id="body-table">
+
+<% if (clientDatabase == '') { %>
+  <script>
+    $('#table').innerHTML = `<div class="d-flex w-100 justify-content-center align-items-center flex-column " style="height: 70vh;">
+                <div class="p-2 bg-transparent d-flex justify-content-center align-items-center flex-column rounded shadow-xl">
+                    <i class="fa-solid fa-magnifying-glass mb-0 bg-transparent text-light-emphasis" style="font-size: 3rem;"></i>
+                    <p class="text-warp fw-semibold text-center bg-transparent p-0 m-0 text-secondary">DATA KOSONG</p>
+                </div>
+            </div>`;
+  </script>       
+<% } %>
+      <% clientDatabase.forEach(client => { %>
+        <tr class="bg-transparent data-client-list" style="display: none;" data-username="<%- client.username  %>" >
+          <td class="text-nowrap bg-transparent ps-1 ps-md-4" id="username-list" ><%- client.username %></td>
+          <td class="text-nowrap bg-transparent">Rp <%- Number(client.savings).toLocaleString('id-ID') %></td>
+          <td class="d-flex justify-content-center bg-transparent " style=" height: 100%; ">
+            <button class="btn btn-danger badge d-block text-center me-1 w-50 button-delete py-2 px-2" data-id="<%- client._id  %>">
+              <i class="fa-solid fa-trash bg-transparent me-sm-2 me-0"></i><span class="detail-list-button">Hapus</span>
+            </button>
+            <button class="btn btn-primary badge text-center px-2 py-2 w-50 button-edit" data-id="<%- client._id %>">
+              <i class="fa-solid fa-pencil bg-transparent me-sm-2 me-0"></i><span class="detail-list-button">Perbarui</span>
+            </button>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<!-- END TABLE SECTION -->
+<!-- <a href="/data-table" class="btn btn-primary buble-button-detail d-block fixed-bottom">DETAIL DATA</a> -->
+<!-- FORM ALERT -->
+<div class="d-none frame-blur-edit w-100 d-flex flex-column justify-content-center " id="form-blur-update" style="opacity: 0;">
+  <div class="w-100">
+    <form action="/admin-dashboard/update-data-client/" method="post" class="d-none px-5 pb-5 pt-3 form-method-data bg-dark text-light rounded rounded-4" 
+      style="opacity: 0;" 
+      id="form-update">
+      <i class="fa-solid fa-xmark fs-5" role="button" id="close-button-up" style="position: relative; top: 10px; left: 100%;"></i>
+
+      <h1 class="text-center lh-1 fs-3 fw-normal pb-3" id="">UPDATE DATA</h1>
+      
+      <label for="id-display-up" class="form-label lh-1 ps-2">Client Id :</label>
+      <div class="input-group mb-3">
+        <input class="form-control input-disable-color" name="id" id="id-display-up" type="text" value=""  readonly >
+      </div>
+
+      <label for="user-display-up" class="form-label lh-1 ps-2">Client Username :</label>
+      <div class="input-group mb-3">
+        <input class="form-control input-disable-color" name="username" id="user-display-up" type="text" value="" autocomplete="username" required readonly>
+      </div>
+
+      <label for="input-nominal-up" class="form-label lh-1 ps-2">Perbarui data ini.</label>
+      <div class="input-group mb-3">
+        
+        <div>
+          <select class="form-select rounded-start-2" name="method" style="border-radius: 0; width: 110px;" required  id="select-method">
+            <option selected>Metode</option>
+            <option value="Tambah">Tambah</option>
+            <option value="Kurang">Kurang</option>
+            <option value="Setel">Setel</option>
+          </select>
+        </div>
+        <span class="input-group-text" id="basic-addon1">Rp</span>
+        <input type="text" class="form-control" placeholder="Nominal" name="nominal" id="input-nominal-up" minlength="5" maxlength="11" required>
+      </div>
+
+      
+
+      <label for="unixcode-up-form" class="form-label lh-1 ps-2">Admin unixcode</label>
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" > <i class="fa-solid fa-calculator"></i></span>
+            <input type="text" class="form-control" placeholder="Unixcode" name="unixcode" id="unixcode-up-form" required>
+          </div>
+          <p class="lh-sm fs-6 ">Panduan methode harus diisi. Selengakpnya di <a href="">Panduan pengisian</a></p>
+      <button class="btn btn-primary w-100 mt-3" type="submit" id="submit-up" disabled>Submit</button>
+      
+    </form>
+    <form action="/admin-dashboard/delete-data-client" method="post" class="d-none form-method-data bg-dark px-5 text-light rounded rounded-4" 
+    style="opacity: 0;"
+    id="form-delete">
+      <i class="fa-solid fa-xmark fs-5" role="button" id="close-button-dlt" style="position: relative; top: 30px; left: 100%;"></i>
+      <h1 class="fs-3 fw-normal text-center pb-3 pt-4">DELETE DATA CLIENT</h1>
+      
+      <label for="id-display-dlt" class="form-label lh-1 ps-2">Client Id :</label>
+      <div class="input-group mb-3">
+        <input class="form-control input-disable-color" name="id" id="id-display-dlt" type="text" value=""  readonly>
+      </div>
+
+      <label for="user-display-dlt" class="form-label lh-1 ps-2">Client Username :</label>
+      <div class="input-group">
+        <input class="form-control input-disable-color" name="username" id="user-display-dlt" type="text" value="" autocomplete="username" readonly >
+      </div>
+      <p class="text-light text-warp pb-4 lh-1 pt-2">Delete data ini secara permananet. <a href="">Delete data</a></p>
+
+      <button type="submit" class="btn btn-secondary w-100 mb-5">Delete</button>
+      
+    </form>
+    <form action="/admin-dashboard/create-data-client" method="post" class="d-none rounded rounded-4 bg-dark text-light from-add-data px-5 py-4 shadow form-add-off " 
+    style="opacity: 0;" id="from-create">
+      <h1 class="fs-3 text-center fw-semibold pb-4 pt-3">TAMBAHKAN DATA</h1>
+          <label for="input-username-add">Nama lengkap :</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text fw-bold">@</span>
+            <input type="text" class="form-control" placeholder="Example Mr.Bean" name="username" required minlength="1" maxlength="18" id="input-username-add" autocomplete="username">
+          </div>
+          <label for="input-frist-savings">Tabungan awal :</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text fw-bold">$</span>
+            <input type="text" class="form-control" placeholder="5.000" value="5.000"  name="savings" id="input-frist-savings" minlength="5" maxlength="11" required>
+          </div>
+          <label for="input-unixcode-add">Admin unixcode :</label>
+          <div class="input-group">
+            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-calculator"></i></span>
+            <input type="text" class="form-control" placeholder="Unixcode" name="unixcode" id="input-unixcode-add" required>
+          </div>
+          <p class="text-light text-warp pb-4 lh-1 pt-2">Tmbahkan data client ke database. <a href="">Panduannya.</a></p>
+        <div class="d-flex w-100 justify-content-end">
+          <button type="button" class="btn btn-secondary mx-2" id="btn-close-create">Close</button>
+          <button type="submit" class="btn btn-primary">Tambahkan</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+<!-- PAGES SCRIPT -->
+<script defer="true" src="../script/pages/admin.form.js"></script>
+<script defer="true" src="../script/pages/admin.input.js"></script>
+<script defer="true" src="../script/pages/admin.main.js"></script>
+</body>
+</html>

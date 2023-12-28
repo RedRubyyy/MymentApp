@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MymentApp - Home</title>
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../style/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/index.css">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="w-100">
+    <main class="index-herotron bg-dark d-flex justify-content-center align-items-center">
+        <nav class="py-2 navbar-line fixed-top ">
+            <div class="d-flex justify-content-between navbar-frame px-3 align-items-center">
+                <a href="" class="text-decoration-none fw-semibold fs-3 text-light lh-sm">ManagementAPP</a>
+                <button  href="/admin-login" class="btn btn-primary px-4" id="btn-disable">Daftar</button>
+            </div>
+        </nav>
+<script>
+    const btn = document.getElementById('btn-disable');
+    btn.addEventListener('click' , function () {
+        alert('Fitur masih dibuat yah say : )');
+    });
+</script>
+        <div class="w-100 text-light pt-5">
+            <div class="w-100 ">
+                <div class="main-content px-lg-5 px-3  d-flex justify-content-between align-items-center">
+                    <div class="text-main-content mx-md-0 mx-auto text-md-start text-center">
+                        <h1 class="fs-1 fw-bold lh-1">HELLO EVERYBODY !!!</h1>
+                        <h3 class="fs-6 lh-1 fw-normal">Wellcome to My ManagementAPP</h3>
+                        <p class="fs-6 fw-bold pt-3">Login sebagai Admin untuk mendapat akses memodifikasi data. Atau lihat statistik dari table detail sebagai anggota organisasi.</p>
+                        
+                        <div class="d-flex justify-content-md-start justify-content-center">
+                            <a href="/data-table" class="btn btn-primary px-4 mt-2">Table Detail</a>
+                            <a href="/admin-login" class="btn btn-primary px-4 mt-2 mx-2">Admin Login</a>
+                        </div>
+                    </div>
+                    <div class="w-auto ms-5 image-main-content d-md-block d-none">
+                        <img src="../img/workspace-removebg-preview.png" alt="workspace-removebg-preview" class="image-content">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </main>
+    <footer class="d-flex align-items-center justify-content-center pt-3 text-light" style="background: #040d12d4">
+        <p class="lh-1">Copyright © 2024 Created by <a href="">Whom?</a> - MymentApp.</p>
+    </footer>
+</body>
+</html>
