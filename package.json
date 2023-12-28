@@ -1,5 +1,5 @@
 {
-  "name": "my-application",
+  "name": "mymentapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,7 +19,6 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "mongoose": "^8.0.0",
-    "node-fetch": "^3.3.2",
     "nodemon": "^3.0.1",
     "validator": "^13.11.0"
   }
